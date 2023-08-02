@@ -64,11 +64,26 @@ class Column:
         nullable (bool): Whether the column is nullable.
         default_value (Any): The default value of the column.
         primary_key (bool): Whether the column is a primary key.
-        foreign_key (str): The reference for a foreign key.
+        foreign_keys (List[ForeignKey]): The list of foreign keys. The default is an empty list.
     """
     name: str
     data_type: DataType
     nullable: bool = False
     default_value: Any = field(default=None)
     primary_key: bool = False
-    foreign_key: str = field(default=None)
+    foreign_keys: List[ForeignKey] = field(default_factory=list)
+    
+@dataclass
+class ForeignKey:
+    """
+    ForeignKey class represents a foreign key in a column.
+
+    Attributes:
+        name (str): The name of the foreign key.
+        table (str): The name of the table the foreign key references.
+        column (str): The name of the column the foreign key references.
+    """
+    name: str
+    table: str
+    column: str
+
