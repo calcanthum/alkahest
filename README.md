@@ -1,49 +1,31 @@
 # Alkahest: Schema Interconversion Project
+## Interconversion Between DBML, SQLAlchemy, and SQL
 
-## Trinary Interconversion Between DBML, SQLAlchemy, and Python Classes
+Alkahest is a Python library that provides a comprehensive reference to translate between three prevalent languages in database schema management: Database Markup Language (DBML), SQLAlchemy (a Python library), and SQL. The ability to interconvert these languages aids in translating a DBML schema into SQLAlchemy code, converting SQL commands into DBML notation, and vice versa. 
 
-This document provides a reference to translate between three prevalent constructs in database schema management: Database Markup Language (DBML), SQLAlchemy (a Python library), and Python Classes. The ability to interconvert these constructs aids in translating a DBML schema into SQLAlchemy code, converting Python classes into DBML notation, and vice versa.
+The Alkahest project includes four key classes: `DataType`, `Alkahest`, `Table`, and `Column`. Each class represents a component of a database and knows how to represent itself in DBML, SQLAlchemy, and SQL.
 
-This guide has been updated to include a new architecture based on Python classes, which provides a more structured and extensible way to represent and translate database schemas.
+## Alkahest Class
 
-### Python Classes for Schema Representation
+The `Alkahest` class represents a database. It has two attributes: `name`, which is the name of the database, and `tables`, which is a dictionary of `Table` objects that represent the tables in the database.
 
-In the new architecture, each concept in a database schema (such as a table, column, or constraint) is represented by a Python class. Each class has methods to convert that concept to DBML, SQLAlchemy, or SQL.
+## Table Class
 
-Here are the main classes:
+The `Table` class represents a table in a database. It has two attributes: `name`, which is the name of the table, and `columns`, which is a dictionary of `Column` objects that represent the columns in the table.
 
-- `Entry`: This is the base class for all other classes. It provides the basic structure for a database concept, including methods to translate to DBML, SQLAlchemy, and SQL.
+## Column Class
 
-- `Table`: This class represents a table in a database schema.
+The `Column` class represents a column in a table. It has several attributes:
 
-- `Column`: This class represents a column in a table.
+- `name`: The name of the column.
+- `data_type`: A `DataType` object that represents the data type of the column.
+- `nullable`: A boolean that indicates whether the column is nullable. The default is `False`.
+- `default_value`: The default value of the column. The default is `None`.
+- `primary_key`: A boolean that indicates whether the column is a primary key. The default is `False`.
+- `foreign_key`: The reference for a foreign key. The default is `None`.
 
-- `DataType`: This class represents a data type for a column.
+## DataType Class
 
-- `NullableColumn`, `DefaultColumn`, `PrimaryKeyColumn`, `ForeignKeyColumn`: These classes represent different types of columns with specific properties.
+The `DataType` class represents a data type in a column. It has three attributes: `dbml`, `sqlalchemy`, and `sql`, which are the names of the data type in DBML, SQLAlchemy, and SQL, respectively.
 
-- `CheckConstraint`: This class represents a check constraint in a table.
-
-Each of these classes can be used to create objects representing components of your database schema. You can then use the methods of these objects to get the DBML, SQLAlchemy, or SQL representation.
-
-### Using the Classes
-
-To use the classes, first create an object for each component of your schema. For example, to create a `Table` object, you would do something like this:
-
-```python
-table = Table('molecules', 'Chemistry')
-```
-
-You can then use the methods of the object to get the DBML, SQLAlchemy, or SQL representation:
-
-```python
-print(table.to_dbml())
-print(table.to_sqlalchemy())
-print(table.to_sql())
-```
-
-This approach is more flexible and maintainable than the previous dictionary-based approach. It allows for more complex behavior, better type checking, and improved IDE support.
-
-### Trinary Interconversion
-
-The term "trinary" refers to something composed of three parts. In this case, it refers to the interconversion between DBML, SQLAlchemy, and Python Classes. By using Python classes as a "bridge", we can translate seamlessly between these three constructs, making it easier to manage and manipulate database schemas.
+By creating instances of these classes and using the provided methods, you can easily translate a database schema from one language to another.
