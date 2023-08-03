@@ -1,41 +1,21 @@
-# Alkahest: Schema Interconversion Project
-## Interconversion Between DBML, SQLAlchemy, and SQL
+# Alkahest
 
-Alkahest is a Python library that provides a comprehensive reference to translate between three prevalent languages in database schema management: Database Markup Language (DBML), SQLAlchemy (a Python library), and SQL. The ability to interconvert these languages aids in translating between schema descriptions. 
+Alkahest is a Python-based project designed to act as a universal translation layer between DBML (Database Markup Language), SQL, and SQLAlchemy. The primary purpose of Alkahest is to aid in maintaining the consistency and accuracy of your database schemas and their corresponding documentation. 
 
-The Alkahest project includes six key classes: `Alkahest`, `Schema`, `Table`, `Column`, `DataType`, and `ForeignKey`. Each class represents a component of a database (or an entire database) and knows how to represent itself in DBML, SQLAlchemy, and SQL.
+This project was born out of the need to keep the AlembIQ database and its documentation synchronized. However, the functionality of Alkahest extends beyond this use case, as it can serve any project that requires translation between these database schema formats.
 
-## Alkahest Class
+The project consists of a set of custom Python classes representing the elements of a database schema, and a set of functions that translate these elements between DBML, SQL, and SQLAlchemy.
 
-The `Alkahest` class represents a database. It has two attributes: `name`, which is the name of the database, and `schemas`, which is a dictionary of `Schema` objects that represent the schemas in the database.
+## Structure of the Project
 
-## Schema Class
+1. **alkahest_classes.py**: This file contains the definitions of various classes representing the elements of a database schema, such as `DataType`, `ForeignKey`, `Column`, `Table`, `Enum`, `Schema`, and `Relationship`.
 
-The `Schema` class represents a schema in a database. It has two attributes: `name`, which is the name of the schema, and `tables`, which is a dictionary of `Table` objects that represent the tables in the schema.
+2. **alkahest_functions.py**: This file contains the definitions of the `Translator` class, which is responsible for translating objects of the classes defined in `alkahest_classes.py` into appropriate representations in DBML, SQL, and SQLAlchemy.
 
-## Table Class
+3. **dbml_to_alkahest.py**: This file contains functions to parse DBML strings into Alkahest objects (defined in "alkahest_classes.py"). The primary function, `dbml_to_alkahest`, translates a DBML schema into an Alkahest `Schema` object.
 
-The `Table` class represents a table in a database. It has two attributes: `name`, which is the name of the table, and `columns`, which is a dictionary of `Column` objects that represent the columns in the table.
+## Usage
 
-## Column Class
+Alkahest enables you to translate your database schema between different formats. This is particularly useful when you need to keep your documentation (DBML, markdown) in sync with your actual database (SQL, SQLAlchemy).
 
-The `Column` class represents a column in a table. It has several attributes:
-
-- `name`: The name of the column.
-- `data_type`: A `DataType` object that represents the data type of the column.
-- `nullable`: A boolean that indicates whether the column is nullable. The default is `False`.
-- `default_value`: The default value of the column. The default is `None`.
-- `primary_key`: A boolean that indicates whether the column is a primary key. The default is `False`.
-- `foreign_keys`: A list of `ForeignKey` objects. The default is an empty list.
-
-## ForeignKey Class
-
-The `ForeignKey` class represents a foreign key in a column. It has three attributes:
-
-- `name`: The name of the foreign key.
-- `table`: The name of the table the foreign key references.
-- `column`: The name of the column the foreign key references.
-
-## DataType Class
-
-The `DataType` class represents a data type in a column. It has three attributes: `dbml`, `sqlalchemy`, and `sql`, which are the names of the data type in DBML, SQLAlchemy, and SQL, respectively.
+Please note that this project is still under development. Contributions and feedback are welcome.

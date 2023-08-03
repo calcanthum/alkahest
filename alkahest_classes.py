@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Dict, List, Any
+from typing import Dict, List, Optional
 
 @dataclass
 class DataType:
@@ -15,43 +15,17 @@ class DataType:
     sqlalchemy: str
     sql: str
 
-
 @dataclass
-class Alkahest:
+class ForeignKey:
     """
-    Alkahest class represents a database.
+    ForeignKey class represents a foreign key in a column.
 
     Attributes:
-        name (str): The name of the database.
-        schemas (Dict[str, 'Schema']): A dictionary of schemas in the database.
+        table (str): The name of the table the foreign key references.
+        column (str): The name of the column the foreign key references.
     """
-    name: str
-    schemas: Dict[str, 'Schema'] = field(default_factory=dict)
-
-@dataclass
-class Schema:
-    """
-    Schema class represents a schema in a database.
-
-    Attributes:
-        name (str): The name of the schema.
-        tables (Dict[str, 'Table']): A dictionary of tables in the schema.
-    """
-    name: str
-    tables: Dict[str, 'Table'] = field(default_factory=dict)
-
-@dataclass
-class Table:
-    """
-    Table class represents a table in a database.
-
-    Attributes:
-        name (str): The name of the table.
-        columns (Dict[str, 'Column']): A dictionary of columns in the table.
-    """
-    name: str
-    columns: Dict[str, 'Column'] = field(default_factory=dict)
-
+    table: str
+    column: str
 
 @dataclass
 class Column:
@@ -68,22 +42,66 @@ class Column:
     """
     name: str
     data_type: DataType
-    nullable: bool = False
-    default_value: Any = field(default=None)
+    nullable: bool = True
     primary_key: bool = False
-    foreign_keys: List[ForeignKey] = field(default_factory=list)
-    
+    default_value = None
+    unique: bool = False
+    check: str = None
+    exclude: str = None
+    foreign_keys: Optional[List[ForeignKey]] = None
+
 @dataclass
-class ForeignKey:
+class Relationship:
+    """A class to represent a relationship between two tables in a database."""
+    table1: str
+    table2: str
+    foreign_keys: List[ForeignKey]
+
+@dataclass
+class Table:
     """
-    ForeignKey class represents a foreign key in a column.
+    Table class represents a table in a database.
 
     Attributes:
-        name (str): The name of the foreign key.
-        table (str): The name of the table the foreign key references.
-        column (str): The name of the column the foreign key references.
+        name (str): The name of the table.
+        columns (Dict[str, 'Column']): A dictionary of columns in the table.
     """
     name: str
-    table: str
-    column: str
+    columns: Dict[str, Column]
+    relationships: List[Relationship] = None
 
+@dataclass
+class Enum:
+    name: str
+    values: List[str]
+
+@dataclass
+class View:
+    """A class to represent a view in a database."""
+    name: str
+    columns: Dict[str, Column]
+    query: str
+
+@dataclass
+class Schema:
+    """
+    Schema class represents a schema in a database.
+
+    Attributes:
+        name (str): The name of the schema.
+        tables (Dict[str, 'Table']): A dictionary of tables in the schema.
+    """
+    name: str
+    tables: Dict[str, 'Table'] = field(default_factory=dict)
+
+@dataclass
+class Database:
+    """
+    Database class represents a database.
+
+    Attributes:
+        name (str): The name of the database.
+        schemas (Dict[str, 'Schema']): A dictionary of schemas in the database.
+    """
+    name: str
+    schemas: Dict[str, 'Schema'] = field(default_factory=dict)
