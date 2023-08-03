@@ -3,7 +3,7 @@
 
 Alkahest is a Python library that provides a comprehensive reference to translate between three prevalent languages in database schema management: Database Markup Language (DBML), SQLAlchemy (a Python library), and SQL. The ability to interconvert these languages aids in translating between schema descriptions. 
 
-The Alkahest project includes six key classes: `DataType`, `Alkahest`, `Schema`, `Table`, `Column`, and `ForeignKey`. Each class represents a component of a database and knows how to represent itself in DBML, SQLAlchemy, and SQL.
+The Alkahest project includes six key classes: `Alkahest`, `Schema`, `Table`, `Column`, `DataType`, and `ForeignKey`. Each class represents a component of a database (or an entire database) and knows how to represent itself in DBML, SQLAlchemy, and SQL.
 
 ## Alkahest Class
 
