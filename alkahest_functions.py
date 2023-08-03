@@ -1,8 +1,27 @@
 class Translator:
+    """
+    The Translator class provides methods to translate Alkahest objects into their respective representations
+    in DBML, SQL, and SQLAlchemy.
+
+    Attributes:
+        obj (Object): The Alkahest object to be translated.
+    """
     def __init__(self, obj):
+        """
+        Initializes a Translator object with the given Alkahest object.
+
+        Args:
+            obj (Object): The Alkahest object to be translated.
+        """
         self.obj = obj
 
     def to_dbml(self):
+        """
+        Translates the Alkahest object into its DBML representation.
+
+        Returns:
+            str: The DBML representation of the Alkahest object.
+        """
         if isinstance(self.obj, DataType):
             return self.obj.dbml
         elif isinstance(self.obj, Column):
@@ -19,10 +38,18 @@ class Translator:
         elif isinstance(self.obj, Database):
             schemas_dbml = "\n".join(self.to_dbml(schema) for schema in self.obj.schemas.values())
             return f'Database "{self.obj.name}" {{\n{schemas_dbml}\n}}'
+        elif isinstance(self.obj, View):
+            return f'View "{self.obj.name}" As SQL\n{self.obj.sql}\nEnd'
         else:
             raise TypeError("Unsupported type for translation")
 
     def to_sqlalchemy(self):
+        """
+        Translates the Alkahest object into its SQLAlchemy representation.
+
+        Returns:
+            str: The SQLAlchemy representation of the Alkahest object.
+        """
         if isinstance(self.obj, DataType):
             return self.obj.sqlalchemy
         elif isinstance(self.obj, Column):
@@ -39,10 +66,18 @@ class Translator:
         elif isinstance(self.obj, Database):
             schemas_sqlalchemy = "\n".join(self.to_sqlalchemy(schema) for schema in self.obj.schemas.values())
             return schemas_sqlalchemy
+        elif isinstance(self.obj, View):
+            return f'# No SQLAlchemy equivalent for View. Consider creating a SQLAlchemy select statement for "{self.obj.name}" view instead.'
         else:
             raise TypeError("Unsupported type for translation")
 
     def to_sql(self):
+        """
+        Translates the Alkahest object into its SQL representation.
+
+        Returns:
+            str: The SQL representation of the Alkahest object.
+        """
         if isinstance(self.obj, DataType):
             return self.obj.sql
         elif isinstance(self.obj, Column):
@@ -59,5 +94,7 @@ class Translator:
         elif isinstance(self.obj, Database):
             schemas_sql = "\n".join(self.to_sql(schema) for schema in self.obj.schemas.values())
             return schemas_sql
+        elif isinstance(self.obj, View):
+            return self.obj.sql
         else:
             raise TypeError("Unsupported type for translation")
