@@ -1,5 +1,4 @@
-import pytest
-from dbml_transformer import dbml_parser
+from dbml_lark import dbml_parser
 from alkahest_functions import Translator
 
 # Mock DBML file path for testing
