@@ -17,6 +17,13 @@ class DataType:
 
 @dataclass
 class View:
+    """
+    Represents a view in a database.
+
+    Attributes:
+        name: A string representing the name of the view.
+        sql: A string containing the SQL statement that defines the view.
+    """
     name: str
     sql: str
 
