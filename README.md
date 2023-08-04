@@ -21,6 +21,57 @@ Alkahest enables you to translate your database schema between different formats
 
 Additionally, Alkahest's capability to transform a database schema into a set of Python objects provides a platform for more advanced manipulations, such as schema modification, validation, and comparison.
 
+### Setup
+To use Alkahest, you'll first need to import the necessary classes and functions:
+
+```python
+from alkahest_classes import Database, Schema, Table, Column, DataType
+from alkahest_functions import Translator
+```
+
+### Examples
+Let's create a simplified version of the AlembIQ database schema using Alkahest classes:
+
+```python
+# Define data types
+integer = DataType('integer')
+varchar = DataType('varchar')
+
+# Define some columns
+id_column = Column('id', integer)
+name_column = Column('name', varchar)
+
+# Define a table
+table = Table('Lab', [id_column, name_column])
+
+# Define a schema
+schema = Schema('LabManagement', [table])
+
+# Define a database
+database = Database('AlembIQ', [schema])
+```
+
+Now, we can use the Translator class to convert this to DBML:
+
+```python
+translator = Translator()
+dbml = translator.to_dbml(database)
+print(dbml)
+```
+
+This will output:
+
+```markdown
+Project AlembIQ {
+  Schema LabManagement {
+    Table Lab {
+      id integer
+      name varchar
+    }
+  }
+}
+```
+
 ## Documentation
 
 For a detailed description of the Alkahest architecture and classes, please visit the Wiki.
