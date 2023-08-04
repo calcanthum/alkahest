@@ -1,5 +1,5 @@
 
-from dbml_lark import dbml_parser, parse_dbml, transform_dbml, create_parser
+from dbml_lark import DBMLTransformer, dbml_parser, parse_dbml, transform_dbml, create_parser
 from alkahest_functions import Translator
 from alkahest_classes import DataType, ForeignKey, Column, Relationship, Table, Enum, View, Schema, Database
 
