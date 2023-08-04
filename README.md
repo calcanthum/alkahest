@@ -1,13 +1,19 @@
 
 # Alkahest
 
-Alkahest is a Python-based project designed to act as a universal translation layer between DBML (Database Markup Language), SQL, and SQLAlchemy. The primary purpose of Alkahest is to aid in maintaining the consistency and accuracy of your database schemas and their corresponding documentation. 
+Alkahest is a Python-based project designed to act as a universal translation layer between DBML (Database Markup Language), SQL, and SQLAlchemy. The primary purpose of Alkahest is to translate your database schema between different formats, helping to keep your documentation (DBML, Markdown) in sync with your actual database (SQL, SQLAlchemy). 
 
-This project was born out of the need to keep the AlembIQ database and its documentation synchronized. However, the functionality of Alkahest extends beyond this use case, as it can serve any project that requires translation between these database schema formats.
+This project was born out of the need to maintain the AlembIQ database and keep its documentation synchronized. However, the functionality of Alkahest extends beyond this use case, as it can serve any project that requires similar work to be done.
+
+## Features
+
+- **Translation between PostgreSQL, SQLAlchemy, and DBML**: Alkahest can translate between these three representations of a database, assisting in keeping all representations synchronized.
+- **Python classes for representing databases**: Alkahest provides a set of Python classes that can represent the components of a database, such as columns, tables, schemas, and the database itself.
+- **Markdown documentation support**: Each Alkahest class includes a `notes` attribute that can hold Markdown documentation for the represented database component. This feature allows for inline, human-readable documentation that can be easily updated and accessed.
 
 ## Project Structure
 
-The project consists of a set of custom Python classes representing the elements of a database schema, a set of functions that translate these elements between DBML, SQL, and SQLAlchemy, and a parser that transforms DBML schemas into Alkahest objects.
+The project consists of a set of custom Python classes representing the elements of a database schema, a set of functions that translate these elements between DBML, SQL, and SQLAlchemy, and a Lark-based parser that transforms DBML schemas into Alkahest objects.
 
 1. **alkahest_classes.py**: This file contains the definitions of various classes that represent the different elements of a database schema. These include `Database`, `Schema`, `Table`, `Column`, `DataType`, `ForeignKey`, `Relationship`, and `View`.
 

@@ -10,22 +10,12 @@ class DataType:
         dbml: The data type in DBML format.
         sqlalchemy: The data type in SQLAlchemy format.
         sql: The data type in SQL format.
+        notes (Optional[str], default=None): Markdown notes about the data type.
     """
     dbml: str
     sqlalchemy: str
     sql: str
-
-@dataclass
-class View:
-    """
-    Represents a view in a database.
-
-    Attributes:
-        name: A string representing the name of the view.
-        sql: A string containing the SQL statement that defines the view.
-    """
-    name: str
-    sql: str
+    notes: Optional[str] = None
 
 @dataclass
 class ForeignKey:
@@ -35,9 +25,11 @@ class ForeignKey:
     Attributes:
         table: The name of the table that the foreign key references.
         column: The name of the column that the foreign key references.
+        notes (Optional[str], default=None): Markdown notes about the foreign key constraint.
     """
     table: str
     column: str
+    notes: Optional[str] = None
 
 @dataclass
 class Column:
@@ -55,6 +47,7 @@ class Column:
         exclude: Any EXCLUDE constraints for the column.
         foreign_keys: Any foreign keys for the column.
         table: A reference to the table that the column belongs to.
+        notes (Optional[str], default=None): Markdown notes about the column.
     """
     name: str
     data_type: DataType
@@ -65,7 +58,8 @@ class Column:
     check: str = None
     exclude: str = None
     foreign_keys: Optional[List[ForeignKey]] = None
-    table: 'Table' = None  
+    table: 'Table' = None 
+    notes: Optional[str] = None
 
 @dataclass
 class Relationship:
@@ -75,15 +69,17 @@ class Relationship:
     Attributes:
         table1: The name of the first table in the relationship.
         table2: The name of the second table in the relationship.
-        column1: The column in the first table involved in the relationship.
-        column2: The column in the second table involved in the relationship.
+        column1: The name of the column in the first table involved in the relationship.
+        column2: The name of the column in the second table involved in the relationship.
         foreign_keys: The foreign keys defining the relationship.
+        notes (Optional[str], default=None): Markdown notes about the relationship.
     """
     table1: str
     table2: str
-    column1: Column = None  
-    column2: Column = None  
+    column1: str = None
+    column2: str = None
     foreign_keys: List[ForeignKey]
+    notes: Optional[str] = None
 
 @dataclass
 class Table:
@@ -94,10 +90,14 @@ class Table:
         name: The name of the table.
         columns: A dictionary mapping column names to Column objects.
         relationships: The relationships involving the table.
+        schema: The schema the table belongs to
+        notes (Optional[str], default=None): Markdown notes about the table.
     """
     name: str
     columns: Dict[str, Column]
     relationships: List[Relationship] = None
+    schema: str
+    notes: Optional[str] = None
 
 @dataclass
 class Enum:
@@ -120,10 +120,12 @@ class View:
         name: The name of the view.
         columns: The columns in the view.
         query: The SQL query that defines the view.
+        notes (Optional[str], default=None): Markdown notes about the view.
     """
     name: str
-    columns: List[Column] = field(default_factory=list)  
+    columns: List[Column] = field(default_factory=list)
     query: str
+    notes: Optional[str] = None
 
 @dataclass
 class Schema:
@@ -133,9 +135,11 @@ class Schema:
     Attributes:
         name: The name of the schema.
         tables: The tables in the schema.
+        notes (Optional[str], default=None): Markdown notes about the schema.
     """
     name: str
-    tables: List[Table] = field(default_factory=list)  
+    tables: List[Table] = field(default_factory=list)
+    notes: Optional[str] = None
 
 
 @dataclass
@@ -146,6 +150,8 @@ class Database:
     Attributes:
         name: The name of the database.
         schemas: The schemas in the database.
+        notes (Optional[str], default=None): Markdown notes about the database.
     """
     name: str
-    schemas: List[Schema] = field(default_factory=list)  
+    schemas: List[Schema] = field(default_factory=list)
+    notes: Optional[str] = None

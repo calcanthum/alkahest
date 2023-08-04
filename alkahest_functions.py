@@ -33,13 +33,17 @@ class Translator:
             columns_dbml = "\n".join(self.to_dbml(column) for column in self.obj.columns.values())
             return f'Table "{self.obj.name}" {{\n{columns_dbml}\n}}'
         elif isinstance(self.obj, Schema):
+            enums_dbml = "\n".join(self.to_dbml(enum) for enum in self.obj.enums.values())
             tables_dbml = "\n".join(self.to_dbml(table) for table in self.obj.tables.values())
-            return f'Schema "{self.obj.name}" {{\n{tables_dbml}\n}}'
+            return f'Schema "{self.obj.name}" {{\n{enums_dbml}\n{tables_dbml}\n}}'
         elif isinstance(self.obj, Database):
             schemas_dbml = "\n".join(self.to_dbml(schema) for schema in self.obj.schemas.values())
             return f'Database "{self.obj.name}" {{\n{schemas_dbml}\n}}'
         elif isinstance(self.obj, View):
             return f'View "{self.obj.name}" As SQL\n{self.obj.sql}\nEnd'
+        elif isinstance(self.obj, Enum):
+            values_dbml = ", ".join(f'"{value}"' for value in self.obj.values)
+            return f'Enum "{self.obj.name}" {{ {values_dbml} }}'
         else:
             raise TypeError("Unsupported type for translation")
 
@@ -61,13 +65,17 @@ class Translator:
             columns_sqlalchemy = ",\n".join(self.to_sqlalchemy(column) for column in self.obj.columns.values())
             return f'class {self.obj.name}(Base):\n    __tablename__ = "{self.obj.name}"\n{columns_sqlalchemy}'
         elif isinstance(self.obj, Schema):
+            enums_sqlalchemy = "\n".join(self.to_sqlalchemy(enum) for enum in self.obj.enums.values())
             tables_sqlalchemy = "\n".join(self.to_sqlalchemy(table) for table in self.obj.tables.values())
-            return tables_sqlalchemy
+            return f'{enums_sqlalchemy}\n{tables_sqlalchemy}'
         elif isinstance(self.obj, Database):
             schemas_sqlalchemy = "\n".join(self.to_sqlalchemy(schema) for schema in self.obj.schemas.values())
-            return schemas_sqlalchemy
+            return f'{schemas_sqlalchemy}'
         elif isinstance(self.obj, View):
             return f'# No SQLAlchemy equivalent for View. Consider creating a SQLAlchemy select statement for "{self.obj.name}" view instead.'
+        elif isinstance(self.obj, Enum):
+            values_sqlalchemy = ", ".join(f'"{value}"' for value in self.obj.values)
+            return f'{self.obj.name} = Enum({values_sqlalchemy})'
         else:
             raise TypeError("Unsupported type for translation")
 
@@ -89,12 +97,16 @@ class Translator:
             columns_sql = ",\n".join(self.to_sql(column) for column in self.obj.columns.values())
             return f'CREATE TABLE "{self.obj.name}" (\n{columns_sql}\n);'
         elif isinstance(self.obj, Schema):
+            enums_sql = "\n".join(self.to_sql(enum) for enum in self.obj.enums.values())
             tables_sql = "\n".join(self.to_sql(table) for table in self.obj.tables.values())
-            return tables_sql
+            return f'{enums_sql}\n{tables_sql}'
         elif isinstance(self.obj, Database):
             schemas_sql = "\n".join(self.to_sql(schema) for schema in self.obj.schemas.values())
-            return schemas_sql
+            return f'{schemas_sql}'
         elif isinstance(self.obj, View):
             return self.obj.sql
+        elif isinstance(self.obj, Enum):
+            values_sql = ", ".join(f"'{value}'" for value in self.obj.values)
+            return f'CREATE TYPE {self.obj.name} AS ENUM ({values_sql});'
         else:
             raise TypeError("Unsupported type for translation")
