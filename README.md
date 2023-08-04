@@ -23,10 +23,6 @@ The project consists of a set of custom Python classes representing the elements
 
 ## Usage
 
-Alkahest enables you to translate your database schema between different formats, helping to keep your documentation (DBML, Markdown) in sync with your actual database (SQL, SQLAlchemy). 
-
-Additionally, Alkahest's capability to transform a database schema into a set of Python objects provides a platform for more advanced manipulations, such as schema modification, validation, and comparison.
-
 ### Setup
 To use Alkahest, you'll first need to import the necessary classes and functions:
 
