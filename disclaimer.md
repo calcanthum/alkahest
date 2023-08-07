@@ -1,6 +1,6 @@
 **Disclaimer: AI-Assisted Parametric Development and Contributions**
 
-This repository and its associated projects have been developed with the assistance of artificial intelligence (AI) models. Depending on the project, this may include one or more models such as GPT-like models, BART-like models, and other specialized transformer models. As a Parametric Developer, I have utilized these AI models to assist in writing, debugging, and documenting the code in this repository.
+This repository and its associated projects have been developed with the assistance of artificial intelligence (AI) models. Depending on the project, this may include one or more models such as GPT-like models, BART-like models, and other specialized transformer models. As a parametric developer, I have utilized these AI models to assist in writing and debugging the code in this repository.
 
 1. **AI Assistance**: AI models, while powerful and versatile, operate based on patterns and associations present in the data used for training. They have been instrumental in expediting the development process and providing insights. However, their outputs have been carefully reviewed and validated to ensure correctness, security, and efficiency.
 

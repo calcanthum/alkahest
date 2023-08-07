@@ -18,20 +18,6 @@ class DataType:
     notes: Optional[str] = None
 
 @dataclass
-class ForeignKey:
-    """
-    Represents a foreign key constraint in a database table.
-
-    Attributes:
-        table: The name of the table that the foreign key references.
-        column: The name of the column that the foreign key references.
-        notes (Optional[str], default=None): Markdown notes about the foreign key constraint.
-    """
-    table: str
-    column: str
-    notes: Optional[str] = None
-
-@dataclass
 class Column:
     """
     Represents a column in a database table.
@@ -97,6 +83,20 @@ class Table:
     columns: Dict[str, Column]
     relationships: List[Relationship] = None
     schema: str
+    notes: Optional[str] = None
+
+@dataclass
+class ForeignKey:
+    """
+    Represents a foreign key constraint in a database table.
+
+    Attributes:
+        table: The names of the tables that the foreign key references.
+        column: The names of the columns that the foreign key references.
+        notes (Optional[str], default=None): Markdown notes about the foreign key constraint.
+    """
+    tables: List[Table] = None
+    columns: List[Column] = None
     notes: Optional[str] = None
 
 @dataclass
