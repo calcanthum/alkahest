@@ -14,9 +14,10 @@ This project was born out of the need to maintain the AlembIQ database and keep 
 ## Project Structure
 The Alkahest project is primarily built around the `Translator` class that facilitates the translation of database components. 
 
-1. **alkahest_functions.py**: Contains the `Translator` class and associated functions.
-2. **alkahest_classes.py**: Houses the Python classes that represent different components of a database, such as columns, tables, and schemas.
+1. **translator.py**: Contains the `Translator` class and associated functions.
+2. **classes.py**: Houses the Python classes that represent different components of a database, such as columns, tables, and schemas.
 3. **dbml_lark.py**: Uses the Lark library to parse DBML strings into Alkahest objects.
+4. **sql_sqlparse.py**: Uses the sqlparse library to parse SQL strings into Alkahest objects.
 
 ## Usage
 Below is a quick guide on how to define a simple database schema using Alkahest and then translate it into DBML:
