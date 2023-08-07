@@ -65,8 +65,5 @@ For a detailed description of the Alkahest architecture and classes, please [vis
 Alkahest is an ongoing project and is continuously evolving. Feedback, suggestions, and contributions are always welcome. To provide feedback, please raise an issue on GitHub.
 
 ## Why "Alkahest"?
-<<<<<<< HEAD
 The name is derived from an alchemical universal solvent, having the power to dissolve every other substance, including gold. Alkahest represents the ability to dissolve the barriers between different representations of a database schema — DBML, SQL, SQLAlchemy, and Markdown. Just as the mythical solvent was thought to be capable of reducing all compounds into their original elements, the Alkahest project reduces a database schema into its basic elements (tables, columns, relationships, etc.) and transforms them into different formats.
-=======
-The name is derived from an alchemical universal solvent, having the power to dissolve every other substance, including gold. Alkahest represents the ability to dissolve the barriers between different representations of a database schema — DBML, SQL, SQLAlchemy, and Markdown. Just as the mythical solvent was thought to be capable of reducing all compounds into their original elements, the Alkahest project reduces a database schema into its basic elements (tables, columns, relationships, etc.) and transforms them into different formats.
->>>>>>> ebad51b1f4833ffaf4539d61f7be5d2f4148dc46
+
