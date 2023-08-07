@@ -1,5 +1,5 @@
 from lark import Lark, Transformer, v_args
-from alkahest_classes import Database, Schema, Table, Column, DataType, ForeignKey, View, Enum
+from classes import Database, Schema, Table, Column, DataType, ForeignKey, View, Enum
 
 # Defining the grammar
 dbml_grammar = """

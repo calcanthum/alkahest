@@ -1,7 +1,7 @@
 import sqlparse
 from sqlparse.sql import Identifier, Function, Parenthesis
 from sqlparse.tokens import Keyword, DML
-from alkahest_classes import Database, Schema, Table, Column, DataType, Enum, View, ForeignKey
+from classes import Database, Schema, Table, Column, DataType, Enum, View, ForeignKey
 
 class SQLtoAlkahest:
     def __init__(self, sql_string, default_schema="public"):
